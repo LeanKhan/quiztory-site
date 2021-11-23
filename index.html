@@ -59,12 +59,14 @@
       <input name="article" type="text">
       
       <input type="submit">
-    </form>
+    </div>
+    
+    <div id="qs">
+      
+    </div>
     
     <script>
-    
-      console.log("COOO");
-      
+          
       axios.get("https://3223-34-86-220-212.ngrok.io/questions?History+of+Nigeria")
       .then((response) => {
     console.log(response.data);
@@ -72,6 +74,14 @@
     console.log(response.statusText);
     console.log(response.headers);
     console.log(response.config);
+        
+        let html = "<ul>";
+        
+        response.data.questions.forEach(q => {
+          `<li>` + q.q
+        });
+        
+        document.getElementById("qs").innerHtml = ""
   });
       
     </script>
