@@ -94,15 +94,18 @@
           console.log(response.headers);
           console.log(response.config);
 
-          let html = "<ul>";
+          var html = "<ul>";
 
           response.data.questions.forEach(q => {
-            `<li>` + q.q;
+            html = html.concat(`<li>` + q.q + `</li>`);
           });
+          
+          html = html.concat("</ul>")
+          
+          qs = document.getElementById("qs");
+        
 
-          document.getElementById("qs").innerHtml = JSON.stringify(
-            response.data
-          );
+          qs.innerHTML = html;
         });
       }
     </script>
