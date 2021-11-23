@@ -58,12 +58,12 @@
       So you think you know Nigerian History?
     </h4>
     
-    <div>
+    <form>
       <label for="article">Article title</label>
       <input name="article" type="text">
       
       <input type="submit">
-    </div>
+    </form>
     
     <div id="qs">
       
@@ -71,9 +71,11 @@
     
     <script>
       
-      const url = URL("");
+      const title = document.getElementsByName("article")[0].val
       
-      url.searchParams.append("title", "bar")
+      const url = URL("https://5d8a-35-221-201-191.ngrok.io/questions");
+      
+      url.searchParams.append("article", "bar")
           
       axios.get("https://3223-34-86-220-212.ngrok.io/questions?History+of+Nigeria")
       .then((response) => {
