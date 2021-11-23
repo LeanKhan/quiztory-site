@@ -1,27 +1,42 @@
-/*
-This is your site JavaScript code - you can add interactivity and carry out processing
-- Initially the JS writes a message to the console, and moves a button you can add from the README
-*/
+// /*
+// This is your site JavaScript code - you can add interactivity and carry out processing
+// - Initially the JS writes a message to the console, and moves a button you can add from the README
+// */
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
+// // Print a message in the browser's dev tools console each time the page loads
+// // Use your menus or right-click / control-click and choose "Inspect" > "Console"
+// console.log("Hello 🌎");
 
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the "Next steps" in the README
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-// Detect clicks on the button
-if (btn) {
-  btn.onclick = function() {
-    // The JS works in conjunction with the 'dipped' code in style.css
-    btn.classList.toggle("dipped");
-  };
-}
+// document.forms[0].attachEvent("onsubmit", function(evt) {
+//   console.log(evt);
+//   evt.preventDefault();
+//   submit();
+// });
 
-// This is a single line JS comment
-/*
-This is a comment that can span multiple lines 
-- use comments to make your own notes!
-*/
+// function submit() {
+//   const title = document.getElementsByName("article")[0].value;
+
+//   if (!title) {
+//     return false;
+//   }
+
+//   const url = URL("https://5d8a-35-221-201-191.ngrok.io/questions");
+
+//   url.searchParams.append("article", title);
+
+//   axios.get(url).then(response => {
+//     console.log(response.data);
+//     console.log(response.status);
+//     console.log(response.statusText);
+//     console.log(response.headers);
+//     console.log(response.config);
+
+//     let html = "<ul>";
+
+//     response.data.questions.forEach(q => {
+//       `<li>` + q.q;
+//     });
+
+//     document.getElementById("qs").innerHtml = JSON.stringify(response.data);
+//   });
+// }
