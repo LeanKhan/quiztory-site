@@ -58,7 +58,7 @@
       So you think you know Nigerian History?
     </h4>
 
-    <form id="form">
+    <form id="form" onsubmit="event.preventDefault(); send_request();">
       <label for="article">Article title</label>
       <input name="article" type="text" />
 
@@ -75,7 +75,7 @@
         submit();
         });
       
-      function submit() {
+      function send_request() {
          
         const title = document.getElementsByName("article")[0].value;
 
@@ -83,7 +83,7 @@
           return false;
         }
 
-        const url = URL("https://5d8a-35-221-201-191.ngrok.io/questions");
+        const url = new URL("https://8504-35-221-201-191.ngrok.io/api/questions");
 
         url.searchParams.append("article", title);
 
