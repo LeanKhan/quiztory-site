@@ -80,16 +80,20 @@
               :disabled="loading"
             />
           </form>
+          
+          <div v-if="images.length > 0">
+            <img  v-for="(img, i) in images" :key="i" :src="img" >
+          </div>
+          
         </div>
 
         <div class="col-8">
           
-            <div id="qs" class="card" style="width: 18rem;" v-if="questions.length > 0">
+            <div id="qs" class="card" v-if="questions.length > 0">
               <ul
                 class="list-group list-group-flush"
-                v-for="(q, i) in questions" :key="i"
               >
-                <Question :question="q"></Question>
+                <Question  v-for="(q, i) in questions" :key="i" :question="q"></Question>
               </ul>
             
           </div>
