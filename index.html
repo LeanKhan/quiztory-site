@@ -39,7 +39,7 @@
     <meta name="twitter:card" content="summary" />
 
     <!-- Import the webpage's stylesheet -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -70,18 +70,24 @@
       
       <div class="row">
         <div class="col-12" style="text-align: center">
-           <form id="form" onsubmit="event.preventDefault(); send_request();">
+           <form id="form" onsubmit="event.preventDefault();">
       <label for="article">Article title</label>
-      <input name="article" type="text" />
+      <input name="article" v-model="article" type="text" />
 
-      <input type="submit" class="btn btn-outline btn-dark" />
+      <input type="submit" @click="send" class="btn btn-outline btn-dark" />
     </form>
 
         </div>
         
         <div class="col-12">
              
-    <div id="qs"></div>
+    <div id="qs">
+      <ol v-if="questions.length > 0">
+        <li v-for="(q, i) in questions" :key="i">
+          <app-question :question="q"></app-quesrion>
+        </li>
+      </ol>      
+    </div>
         </div>
       </div>
       
@@ -96,42 +102,10 @@
        document.getElementById("form").addEventListener('onsubmit', function(evt){
          console.log(evt);
         evt.preventDefault();
-        submit();
+        // submit();
         });
       
-      function send_request() {
-         
-        const title = document.getElementsByName("article")[0].value;
-
-        if (!title) {
-          return false;
-        }
-
-        const url = new URL(api_url + "api/questions");
-
-        url.searchParams.append("article", title);
-
-        axios.get(url).then(response => {
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.statusText);
-          console.log(response.headers);
-          console.log(response.config);
-
-          var html = "<ul>";
-
-          response.data.questions.forEach(q => {
-            html = html.concat(`<li>` + q.q + `</li>`);
-          });
-          
-          html = html.concat("</ul>")
-          
-          qs = document.getElementById("qs");
-        
-
-          qs.innerHTML = html;
-        });
-      }
+      
     </script>
     <script>
     const Question = {
@@ -147,7 +121,7 @@
     </script>
 
 <script>
-  Vue.component("Question", Question);
+  Vue.component("question", Question);
 
 
   var app = new Vue({
@@ -155,12 +129,28 @@
     data() {
       return {
         authstatus: false,
-        questions: []
+        questions: [],
+        article: ""
       };
     },
     methods: {
       send() {
-        console.log('yee');
+        
+        console.log('YYY')
+        
+        const url = new URL(api_url + "api/questions");
+
+        url.searchParams.append("article", this.article);
+
+        axios.get(url).then(response => {
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.statusText);
+          console.log(response.headers);
+          console.log(response.config);
+
+          this.questions = response.data.questions;
+        });
       }
     }
   });
