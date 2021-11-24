@@ -40,7 +40,7 @@
 
     <!-- Import the webpage's stylesheet -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<link
+    <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
@@ -65,96 +65,108 @@
     <h5 style="text-align: center">
       Test yourself on Nigerian History
     </h5>
-    
+
     <div id="app" class="container mt-4">
-      
       <div class="row">
         <div class="col-12" style="text-align: center">
-           <form id="form" onsubmit="event.preventDefault();">
-      <label for="article">Article title</label>
-      <input name="article" v-model="article" type="text" />
+          <form id="form" onsubmit="event.preventDefault();">
+            <label for="article">Article title</label>
+            <input name="article" v-model="article" type="text" />
 
-      <input type="submit" @click="send" class="btn btn-outline btn-dark" />
-    </form>
+            <input
+              type="submit"
+              @click="send"
+              class="btn btn-outline btn-dark"
+              :disabled="loading"
+            />
+          </form>
+        </div>
 
+        <div class="col-8">
+          
+            <div id="qs" class="card" style="width: 18rem;" v-if="questions.length > 0">
+              <ul
+                class="list-group list-group-flush"
+                
+              >
+                <Question :question="q"></Question>
+              </ul>
+            
+          </div>
+          
+            
         </div>
         
-        <div class="col-12">
-             
-    <div id="qs">
-      <ol v-if="questions.length > 0">
-        <li v-for="(q, i) in questions" :key="i">
-          <app-question :question="q"></app-quesrion>
-        </li>
-      </ol>      
-    </div>
+        <div class="col-4">
+          poop
         </div>
       </div>
-      
     </div>
 
-
-
     <script>
-      
-      const api_url = "https://eac2-35-230-191-162.ngrok.io/"
-      
-       document.getElementById("form").addEventListener('onsubmit', function(evt){
-         console.log(evt);
-        evt.preventDefault();
-        // submit();
+      const api_url = "https://eac2-35-230-191-162.ngrok.io/";
+
+      document
+        .getElementById("form")
+        .addEventListener("onsubmit", function(evt) {
+          console.log(evt);
+          evt.preventDefault();
+          // submit();
         });
-      
-      
     </script>
     <script>
-    const Question = {
-  template: `
-      <li>
+      const Question = {
+        template: `
+      <li class="list-group-item">
         {{ question.q }}
         
         <b> Ans: {{ question.ans }} </b>
       </li>
   `,
-  props: ["question"]
-};
+        props: ["question"]
+      };
     </script>
 
-<script>
-  Vue.component("question", Question);
+    <script>
+      Vue.component("Question", Question);
 
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            authstatus: false,
+            questions: [],
+            article: "",
+            loading: false
+          };
+        },
+        methods: {
+          send() {
+            this.loading = true;
 
-  var app = new Vue({
-    el: "#app",
-    data() {
-      return {
-        authstatus: false,
-        questions: [],
-        article: ""
-      };
-    },
-    methods: {
-      send() {
-        
-        console.log('YYY')
-        
-        const url = new URL(api_url + "api/questions");
+            console.log("YYY");
 
-        url.searchParams.append("article", this.article);
+            const url = new URL(api_url + "api/questions");
 
-        axios.get(url).then(response => {
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.statusText);
-          console.log(response.headers);
-          console.log(response.config);
+            url.searchParams.append("article", this.article);
 
-          this.questions = response.data.questions;
-        });
-      }
-    }
-  });
-</script>
+            axios
+              .get(url)
+              .then(response => {
+                console.log(response.data);
+                console.log(response.status);
+                console.log(response.statusText);
+                console.log(response.headers);
+                console.log(response.config);
 
+                this.questions = response.data.questions;
+              })
+              .finally(() => {
+                this.loading = false;
+              });
+          }
+        }
+      });
+    </script>
   </body>
 </html>
