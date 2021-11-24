@@ -81,11 +81,17 @@
             />
           </form>
           
-          <div v-if="images.length > 0">
-            <img  v-for="(img, i) in images" :key="i" :src="img" >
+          
+          <div v-if="questions">
+            <h5>
+              Questions on <span class="text-red">{{ title }}</span>
+              . <a href="{{ link }}" target="_blank">View Original</a>
+            </h5>
           </div>
           
+          
         </div>
+      
 
         <div class="col-8">
           
@@ -102,7 +108,9 @@
         </div>
         
         <div class="col-4">
-          poop
+          <img height="100px" v-if="images.length > 0" :key="i" :src="images[3]" >
+          <img height="100px" v-if="images.length > 0" :key="i" :src="images[2]" >
+          <img height="100px" v-if="images.length > 0" :key="i" :src="images[1]" >
         </div>
       </div>
     </div>
@@ -141,6 +149,9 @@
             authstatus: false,
             questions: [],
             article: "",
+            url: "",
+            links: [],
+            images: [],
             loading: false
           };
         },
@@ -164,6 +175,10 @@
                 console.log(response.config);
 
                 this.questions = response.data.questions;
+              this.images = response.data.images;
+              this.links = response.data.links;
+              this.url = response.data.url;
+              this.title = response.data.title;
               })
               .finally(() => {
                 this.loading = false;
