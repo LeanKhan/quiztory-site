@@ -87,7 +87,7 @@
             <div id="qs" class="card" style="width: 18rem;" v-if="questions.length > 0">
               <ul
                 class="list-group list-group-flush"
-                
+                v-for="(q, i) in questions" :key="i"
               >
                 <Question :question="q"></Question>
               </ul>
