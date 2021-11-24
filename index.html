@@ -55,11 +55,14 @@
       The elements include attributes referenced in the CSS for the page style
     -->
 
-    <h1 style="font-weight: bold;color: orange;text-align: center">
-      Histo-Quiz!
+    <h1 class="mt-4" style="font-weight: bold;color: orange;text-align: center">
+      Quiztory!
     </h1>
+    <h5 style="text-align: center">
+      Test yourself on Nigerian History
+    </h5>
     
-    <div class="container">
+    <div class="container mt-4">
       
       <div class="row">
         <div class="col-12" style="text-align: center">
@@ -84,6 +87,8 @@
 
     <script>
       
+      const api_url = "https://44cd-35-230-191-162.ngrok.io/"
+      
        document.getElementById("form").addEventListener('onsubmit', function(evt){
          console.log(evt);
         evt.preventDefault();
@@ -98,7 +103,7 @@
           return false;
         }
 
-        const url = new URL("https://8504-35-221-201-191.ngrok.io/api/questions");
+        const url = new URL(api_url + "api/questions");
 
         url.searchParams.append("article", title);
 
