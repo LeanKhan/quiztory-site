@@ -16,7 +16,7 @@
       You can write text in a comment and the content won't be visible in the page
     -->
 
-    <title>Hello World!</title>
+    <title>Quiztory - Test your knowledge of Nigerian History!</title>
 
     <!-- Meta tags for SEO and social sharing -->
     <link rel="canonical" href="https://glitch-hello-website.glitch.me/" />
@@ -63,7 +63,8 @@
       Quiztory!
     </h1>
     <h5 style="text-align: center">
-      Test yourself on Nigerian History
+      Test yourself on Nigerian History.
+      We use AI to generate questions from Wikipedia articles. Try "History of Nigeria" 
     </h5>
 
     <div id="app" class="container mt-4">
@@ -80,40 +81,39 @@
               :disabled="loading"
             />
           </form>
-          
-          
-          <div v-if="questions">
-            <h5>
-              Questions on <span class="text-red">{{ title }}</span>
-              . <a href="{{ link }}" target="_blank">View Original</a>
-            </h5>
+
+          <div class="my-2" v-if="questions.length > 0">
+            <p>
+              Questions on
+              <span class="font-italic text-info">{{ title }}</span> .
+              <a v-bind:href="url" target="_blank">View Original</a>
+            </p>
           </div>
-          
-          
         </div>
-      
 
         <div class="col-8">
-          
-            <div id="qs" class="card" v-if="questions.length > 0">
-              <ul
-                class="list-group list-group-flush"
-              >
-                <Question  v-for="(q, i) in questions" :key="i" :question="q"></Question>
-              </ul>
-            
+          <div id="qs" class="card" v-if="questions.length > 0">
+            <ul class="list-group list-group-flush">
+              <Question
+                v-for="(q, i) in questions"
+                :key="i"
+                :question="q"
+              ></Question>
+            </ul>
           </div>
-          
-            
         </div>
-        
+
         <div class="col-4">
-          <img height="100px" v-if="images.length > 0" :key="i" :src="images[3]" >
-          <img height="100px" v-if="images.length > 0" :key="i" :src="images[2]" >
-          <img height="100px" v-if="images.length > 0" :key="i" :src="images[1]" >
+          <img height="100px" v-if="images.length > 0" :src="images[3]" />
+          <img height="100px" v-if="images.length > 0" :src="images[2]" />
+          <img height="100px" v-if="images.length > 0" :src="images[1]" />
         </div>
       </div>
     </div>
+
+    <footer class="my-4 text-center">
+      By <a href="https://github.com/LeanKhan" target="_blank">LeanKhan</a>
+    </footer>
 
     <script>
       const api_url = "https://eac2-35-230-191-162.ngrok.io/";
@@ -175,10 +175,10 @@
                 console.log(response.config);
 
                 this.questions = response.data.questions;
-              this.images = response.data.images;
-              this.links = response.data.links;
-              this.url = response.data.url;
-              this.title = response.data.title;
+                this.images = response.data.images;
+                this.links = response.data.links;
+                this.url = response.data.url;
+                this.title = response.data.title;
               })
               .finally(() => {
                 this.loading = false;
